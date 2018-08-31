@@ -1,40 +1,41 @@
 import React, { Component } from "react";
 import CardList from "../components/CardList";
-import robots from "../robots";
 import SearchBox from "../components/SearchBox";
+import { connect } from "react-redux";
+import { setSearchField } from "../actions";
 import "./App.css";
 import "tachyons";
 
-class App extends Component {
-  constructor() {
-    super();
-    this.state = {
-      robots: robots,
-      searchfield: ""
-    };
-  }
-
-  componentDidMount() {
-    console.log(this.props.store.getState());
-  }
-
-  onSearchChange = event => {
-    this.setState({ searchfield: event.target.value });
+const mapStateToProps = state => {
+  return {
+    robots: state.robots,
+    searchfield: state.searchfield
   };
+};
 
+const mapDispatchToProps = dispatchEvent => {
+  return {
+    onSearchChange: event => dispatchEvent(setSearchField(event.target.value))
+  };
+};
+
+class App extends Component {
   render() {
-    const { robots, searchfield } = this.state;
+    const { robots, searchfield, onSearchChange } = this.props;
     const filteredRobots = robots.filter(robot => {
       return robot.name.toLowerCase().includes(searchfield.toLowerCase());
     });
     return (
       <div className="tc tracked">
         <h1 className="f1">Robofriends</h1>
-        <SearchBox searchChange={this.onSearchChange} />
+        <SearchBox searchChange={onSearchChange} />
         <CardList robots={filteredRobots} />
       </div>
     );
   }
 }
 
-export default App;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);
