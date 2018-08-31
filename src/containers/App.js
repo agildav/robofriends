@@ -14,6 +14,10 @@ class App extends Component {
     };
   }
 
+  componentDidMount() {
+    console.log(this.props.store.getState());
+  }
+
   onSearchChange = event => {
     this.setState({ searchfield: event.target.value });
   };
