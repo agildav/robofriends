@@ -5,16 +5,22 @@ import SearchBox from "../components/SearchBox";
 import "./MainPage.css";
 
 class MainPage extends Component {
-  render() {
-    const { robots, searchfield, onSearchChange } = this.props;
-    const filteredRobots = robots.filter(robot => {
-      return robot.name.toLowerCase().includes(searchfield.toLowerCase());
+  filteredRobots = () => {
+    return this.props.robots.filter(robot => {
+      return robot.name
+        .toLowerCase()
+        .includes(this.props.searchfield.toLowerCase());
     });
+  };
+
+  render() {
+    const { onSearchChange } = this.props;
+
     return (
       <div className="tc tracked">
         <h1 className="f1">Robofriends</h1>
         <SearchBox searchChange={onSearchChange} />
-        <CardList robots={filteredRobots} />
+        <CardList robots={this.filteredRobots()} />
       </div>
     );
   }
