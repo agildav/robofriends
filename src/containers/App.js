@@ -1,10 +1,9 @@
 import React, { Component } from "react";
-import CardList from "../components/CardList";
-import SearchBox from "../components/SearchBox";
+import MainPage from "../components/MainPage";
+
 import { connect } from "react-redux";
 import { setSearchField } from "../actions";
 import "tachyons";
-import "./App.css";
 
 const mapStateToProps = state => {
   return {
@@ -21,17 +20,7 @@ const mapDispatchToProps = dispatchEvent => {
 
 class App extends Component {
   render() {
-    const { robots, searchfield, onSearchChange } = this.props;
-    const filteredRobots = robots.filter(robot => {
-      return robot.name.toLowerCase().includes(searchfield.toLowerCase());
-    });
-    return (
-      <div className="tc tracked">
-        <h1 className="f1">Robofriends</h1>
-        <SearchBox searchChange={onSearchChange} />
-        <CardList robots={filteredRobots} />
-      </div>
-    );
+    return <MainPage {...this.props} />;
   }
 }
 
