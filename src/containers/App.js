@@ -3,8 +3,8 @@ import CardList from "../components/CardList";
 import SearchBox from "../components/SearchBox";
 import { connect } from "react-redux";
 import { setSearchField } from "../actions";
-import "./App.css";
 import "tachyons";
+import "./App.css";
 
 const mapStateToProps = state => {
   return {
